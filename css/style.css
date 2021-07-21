@@ -1,0 +1,35 @@
+body{
+    background-color: darkturquoise;
+}
+
+.board th, td {
+    border: 6px solid black;
+}
+
+.board td {
+    width: 100px;
+    height: 80px;
+    background-color: gray;
+    color: white;
+}
+
+.board {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    height: 400px;
+    margin-right: auto;
+    width: 400px;
+    background-color: tomato;
+}
+.board div{
+    height: 40px;
+    width: 40px;
+}
+
+#cells:hover{
+   background-color: darkgray ;
+}
+#cells{
+    text-align: center;
+}
