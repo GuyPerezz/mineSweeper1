@@ -1,35 +1,78 @@
-body{
-    background-color: darkturquoise;
+.head {
+    position: relative;
+    margin-top: 130px;
+    font-family: "Avenir Next", sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    display: inline-block;
+}
+
+body p {
+    font-family: "Avenir Next", sans-serif;
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: 650;
+}
+
+body {
+    background: #4c268f;
+    color: #99eeb4;
+    height: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .board th, td {
-    border: 6px solid black;
+    box-align: center;
+    border: 4px solid #50CB93
 }
 
 .board td {
     width: 100px;
     height: 80px;
-    background-color: gray;
-    color: white;
+    text-shadow: 20px;
 }
 
 .board {
+    margin-top: 6%;
+    margin-left: 39%;
+    margin-right: 25%;
     display: flex;
     position: relative;
     flex-wrap: wrap;
     height: 400px;
-    margin-right: auto;
     width: 400px;
-    background-color: tomato;
-}
-.board div{
-    height: 40px;
-    width: 40px;
+    background-color: #71EFA3;
 }
 
-#cells:hover{
-   background-color: darkgray ;
+.hoverCell:hover {
+    background-color: #ACFFAD;
 }
-#cells{
+
+.hoverCell {
     text-align: center;
+}
+
+.selected {
+    background-color: #4c268f;
+}
+
+.button {
+    top: 0;
+    left: 0;
+    transition: all .15s linear 0s;
+    position: relative;
+    display: inline-block;
+    padding: 15px 25px;
+    background-color: yellow;
+    text-transform: uppercase;
+    color: rgb(54, 41, 41);
+    font-family: arial;
+    letter-spacing: 1px;
+    box-shadow: -6px 6px 0 rgb(54, 41, 41);
+    text-decoration: none;
 }

@@ -1,6 +1,8 @@
 'use script';
-
+document.addEventListener('contextmenu',event =>event.preventDefault());
 debugger;
+var gTimerInterval;
+var gSelectedElCell;
 var gMine = '🧨';
 var gBoard;
 var gLevel = {
@@ -22,17 +24,34 @@ var gCell = {
 
 function initGame() {
   gBoard = buildBoard(gLevel.size);
-  renderBoard(gBoard, '.board');
-  setMinesNegsCount(gBoard, 3, 1);
-}
 
+  renderBoard(gBoard, '.board');
+}
+debugger
+function cellClicked(elcell) {
+  if(elcell.isMine){
+     checkGameOver();
+  }
+startTimer();
+  gCell.minesAroundcount = 0;
+  var parts = elcell.id.split('-');
+  var coord = { i: +parts[1], j: +parts[2] };
+  
+  console.log(coord);
+  var negs = setMinesNegsCount(gBoard, coord.i, coord.j);
+  console.log('negsAround:', negs);
+  cellNegsCount(elcell, negs);
+
+  return coord;
+
+}
 function buildBoard(size) {
   var board = [];
   for (var i = 0; i < size; i++) {
     board.push([]);
     for (var j = 0; j < size; j++) {
       var Cell = {
-        minesAroundcount: 4,
+        minesAroundcount: 0,
         isShown: false,
         isMine: false,
         isMarked: false,
@@ -41,11 +60,9 @@ function buildBoard(size) {
     }
   }
 
-  board[1][2].isShown = true;
-  board[2][1].isShown = true;
+  
   board[1][2].isMine = true;
   board[2][1].isMine = true;
-  console.table(board);
 
   return board;
 }
@@ -56,9 +73,10 @@ function renderBoard(board, selector) {
     strHTML += '<tr>';
     for (var j = 0; j < board[0].length; j++) {
       var currCell = board[i][j];
-      var className = `cell:${i}-${j}`;
-      strHTML += `<td id="cells" class=${className}"> ${
-        currCell.isShown && currCell.isMine ? gMine : 0
+      var tdId = `cell-${i}-${j}`;
+      var className = gCell;
+      strHTML += `<td id="${tdId}" class="hoverCell" onclick="cellClicked(this)" class=${className}"> ${
+        currCell.isShown && currCell.isMine ? gMine : ''
       }  </td>`;
     }
     strHTML += '</tr>';
@@ -74,15 +92,32 @@ function setMinesNegsCount(board, cellI, cellJ) {
     for (var j = cellJ - 1; j <= cellJ + 1; j++) {
       if (j < 0 || j >= board[0].length) continue;
       if (i === cellI && j === cellJ) continue;
-      if (board[i][j].isMine){
+      if (board[i][j].isMine) {
         gCell.minesAroundcount++;
       }
     }
   }
-  console.log(gCell.minesAroundcount);
+
+  return gCell.minesAroundcount;
 }
 
-function cellClicked(elcell, i, j){
+//debugger;
+
+
+function cellNegsCount(cellClicked, negsCount) {
+  cellClicked.classList.add('selected');
+  
+  if(negsCount ===0){
+    cellClicked.innerText = ''
+  } else {cellClicked.innerText = negsCount}
+
 
 }
- 
+
+function checkGameOver() {
+  alert('DEAD!');
+}
+
+
+
+
